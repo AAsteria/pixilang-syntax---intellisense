@@ -1,0 +1,26 @@
+{
+  "name": "pixilang-syntax---intellisense",
+  "displayName": "Pixilang Syntax & IntelliSense",
+  "description": "A Visual Studio Code extension that enhances your Pixilang coding experience by offering syntax highlighting, code completion, and IntelliSense for Pixilang's built-in functions and keywords.",
+  "version": "0.0.1",
+  "main": "./extension.js",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "pixilang",
+      "aliases": ["Pixilang", "pixilang"],
+      "extensions": [".pixi"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "pixilang",
+      "scopeName": "source.pixilang",
+      "path": "./syntaxes/pixilang.tmLanguage.json"
+    }]
+  }
+}
