@@ -2,7 +2,7 @@
   "name": "pixilang-syntax---intellisense",
   "displayName": "Pixilang Syntax & IntelliSense",
   "description": "A Visual Studio Code extension that enhances your Pixilang coding experience by offering syntax highlighting, code completion, and IntelliSense for Pixilang's built-in functions and keywords.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "AAsteria",
   "repository": {
     "type": "git",
