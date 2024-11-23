@@ -1,65 +1,66 @@
-# pixilang-syntax---intellisense README
+# Pixilang Syntax & IntelliSense
 
-This is the README for your extension "pixilang-syntax---intellisense". After writing up a brief description, we recommend including the following sections.
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+**Pixilang Syntax & IntelliSense** is a Visual Studio Code extension designed to enhance the Pixilang programming experience by providing syntax highlighting, IntelliSense, and detailed function documentation.
 
 ---
 
-## Working with Markdown
+## Features
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+- **Syntax Highlighting**: Pixilang code is color-coded for better readability.
+- **IntelliSense**: Autocompletion for Pixilang's built-in functions, constants, and keywords.
+- **Hover Documentation**: Detailed descriptions, parameter explanations, and examples for built-in functions.
+- **Wide Function Coverage**: Includes Pixilang features such as:
+  - Graphics
+  - OpenGL
+  - Animation
+  - Threads
+  - File Handling
+  - Networking
+  - System Calls, and more!
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+---
 
-## For more information
+## Requirements
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- **Visual Studio Code** version `1.95.0` or higher.
+- Basic understanding of Pixilang.
 
-**Enjoy!**
+---
+
+## Extension Settings
+
+This extension does not add specific settings at this time. Future updates may include configurable options.
+
+---
+
+## Known Issues
+
+- Custom or user-defined functions are not yet supported in IntelliSense.
+- Advanced syntax edge cases may require further fine-tuning.
+
+---
+
+## Release Notes
+
+### 1.0.0
+- Initial release.
+- Added support for all Pixilang built-in functions with hover documentation.
+- IntelliSense for Pixilang function autocompletion.
+
+---
+
+## Future Plans
+
+- Add debugging tools for Pixilang.
+- Extend support for user-defined functions.
+
+---
+
+## For More Information
+
+- [Pixilang Official Website](http://warmplace.ru/soft/pixilang/)
+- [Visual Studio Code Extension Development](https://code.visualstudio.com/api)
+
+---
+
+**Enjoy coding with Pixilang!**
