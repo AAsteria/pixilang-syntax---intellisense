@@ -1,6 +1,7 @@
 # Pixilang Syntax & IntelliSense
 
 **Pixilang Syntax & IntelliSense** is a Visual Studio Code extension designed to enhance the Pixilang programming experience by providing syntax highlighting, IntelliSense, and detailed function documentation.
+
 ![Demo Screenshot](./demo.gif)
 ---
 
