@@ -53,7 +53,7 @@ This extension does not add specific settings at this time. Future updates may i
 ## Future Plans
 
 - Add debugging tools for Pixilang.
-- Extend support for user-defined functions.
+- Extend support for sunvox specific functions.
 
 ---
 
