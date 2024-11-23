@@ -9,6 +9,7 @@ let builtInItems = [];
  * @param {vscode.ExtensionContext} context 
  */
 function activate(context) {
+    const globalsPath = path.join(__dirname, 'globals');
     const constantsPath = path.join(__dirname, 'constants');
     const functionsPath = path.join(__dirname, 'functions');
 
@@ -29,40 +30,60 @@ function activate(context) {
         return items;
     }
 
+    const globals = loadItemsFromDirectory(globalsPath, 'global');
     const constants = loadItemsFromDirectory(constantsPath, 'constant');
     const functions = loadItemsFromDirectory(functionsPath, 'function');
-    builtInItems = [...constants, ...functions];
 
-    console.log(`Loaded ${functions.length} functions and ${constants.length} constants.`);
+    builtInItems = [...globals, ...constants, ...functions];
+    console.log(`Loaded ${functions.length} functions, ${constants.length} constants, and ${globals.length} globals.`);
     console.log('Functions:', functions.map(f => f.name));
     console.log('Constants:', constants.map(c => c.name));
+    console.log('Globals:', globals.map(g => g.name));
 
-    // register CompletionItemProvider for Pixilang
+    // Register CompletionItemProvider for Pixilang
     const provider = vscode.languages.registerCompletionItemProvider(
         { language: 'pixilang', scheme: 'file' },
         {
             provideCompletionItems(document, position, token, context) {
-                // map functions and constants to CompletionItems
+                // Map functions, constants, and globals to CompletionItems
                 return builtInItems.map(item => {
-                    const labelPrefix = item.type === 'function' ? 'fn' : 'cons';
-                    const completionItemKind =
-                        item.type === 'function'
-                            ? vscode.CompletionItemKind.Function
-                            : vscode.CompletionItemKind.Constant;
+                    let labelPrefix;
+                    let completionItemKind;
+
+                    switch (item.type) {
+                        case 'global':
+                            labelPrefix = 'global';
+                            completionItemKind = vscode.CompletionItemKind.Variable;
+                            break;
+                        case 'constant':
+                            labelPrefix = 'cons';
+                            completionItemKind = vscode.CompletionItemKind.Constant;
+                            break;
+                        case 'function':
+                            labelPrefix = 'fn';
+                            completionItemKind = vscode.CompletionItemKind.Function;
+                            break;
+                        default:
+                            labelPrefix = '';
+                            completionItemKind = vscode.CompletionItemKind.Text;
+                    }
 
                     const completionItem = new vscode.CompletionItem(
-                        `${labelPrefix} ${item.name}`,
+                        item.name, // Only the name will be inserted
                         completionItemKind
                     );
 
+                    completionItem.label = { label: `${labelPrefix} ${item.name}`, description: '' }; // Prefix visible in IntelliSense dropdown
+                    completionItem.insertText = item.name; // Only insert the actual name
                     completionItem.detail = item.detail;
                     completionItem.documentation = new vscode.MarkdownString(item.documentation);
+
                     return completionItem;
                 });
             },
         },
         '(', // Trigger IntelliSense for functions on open parenthesis
-        '.', // Trigger IntelliSense for constants/properties
+        '.', // Trigger IntelliSense for constants/properties/globals
         ' ', // Trigger IntelliSense after a space
         '='  // Trigger IntelliSense after an assignment
     );
