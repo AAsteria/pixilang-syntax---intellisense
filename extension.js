@@ -12,6 +12,7 @@ function activate(context) {
     const globalsPath = path.join(__dirname, 'globals');
     const constantsPath = path.join(__dirname, 'constants');
     const functionsPath = path.join(__dirname, 'functions');
+    const propertiesPath = path.join(__dirname, 'reserved_properties');
 
     function loadItemsFromDirectory(directory, type) {
         if (!fs.existsSync(directory)) {
@@ -33,12 +34,14 @@ function activate(context) {
     const globals = loadItemsFromDirectory(globalsPath, 'global');
     const constants = loadItemsFromDirectory(constantsPath, 'constant');
     const functions = loadItemsFromDirectory(functionsPath, 'function');
+    const properties = loadItemsFromDirectory(propertiesPath, 'property');
 
-    builtInItems = [...globals, ...constants, ...functions];
-    console.log(`Loaded ${functions.length} functions, ${constants.length} constants, and ${globals.length} globals.`);
-    console.log('Functions:', functions.map(f => f.name));
-    console.log('Constants:', constants.map(c => c.name));
+    builtInItems = [...globals, ...constants, ...functions, ...properties];
+
     console.log('Globals:', globals.map(g => g.name));
+    console.log('Constants:', constants.map(c => c.name));
+    console.log('Functions:', functions.map(f => f.name));
+    console.log('Properties:', properties.map(p => p.name));
 
     // Register CompletionItemProvider for Pixilang
     const provider = vscode.languages.registerCompletionItemProvider(
@@ -63,18 +66,22 @@ function activate(context) {
                             labelPrefix = 'fn';
                             completionItemKind = vscode.CompletionItemKind.Function;
                             break;
+                        case 'property':
+                            labelPrefix = 'prop';
+                            completionItemKind = vscode.CompletionItemKind.Property;
+                            break;
                         default:
                             labelPrefix = '';
                             completionItemKind = vscode.CompletionItemKind.Text;
                     }
 
                     const completionItem = new vscode.CompletionItem(
-                        item.name, // Only the name will be inserted
+                        item.name,
                         completionItemKind
                     );
 
-                    completionItem.label = { label: `${labelPrefix} ${item.name}`, description: '' }; // Prefix visible in IntelliSense dropdown
-                    completionItem.insertText = item.name; // Only insert the actual name
+                    completionItem.label = { label: `${labelPrefix} ${item.name}`, description: '' };
+                    completionItem.insertText = item.name;
                     completionItem.detail = item.detail;
                     completionItem.documentation = new vscode.MarkdownString(item.documentation);
 
