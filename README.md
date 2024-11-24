@@ -21,13 +21,6 @@
 
 ---
 
-## Requirements
-
-- **Visual Studio Code** version `1.95.0` or higher.
-- Basic understanding of Pixilang.
-
----
-
 ## Extension Settings
 
 This extension does not add specific settings at this time. Future updates may include configurable options.
@@ -41,20 +34,11 @@ This extension does not add specific settings at this time. Future updates may i
 
 ---
 
-## Release Notes
-
-### 1.0.0
-- Initial release.
-- Added support for all Pixilang built-in functions with hover documentation.
-- IntelliSense for Pixilang function autocompletion.
-
----
-
 ## Future Plans
 
-- Add debugging tools for Pixilang.
 - Extend support for sunvox specific functions.
-
+- Add debugging tools for Pixilang.
+- 
 ---
 
 ## For More Information
