@@ -38,10 +38,10 @@ function activate(context) {
 
     builtInItems = [...globals, ...constants, ...functions, ...properties];
 
-    console.log('Globals:', globals.map(g => g.name));
-    console.log('Constants:', constants.map(c => c.name));
-    console.log('Functions:', functions.map(f => f.name));
-    console.log('Properties:', properties.map(p => p.name));
+    // console.log('Globals:', globals.map(g => g.name));
+    // console.log('Constants:', constants.map(c => c.name));
+    // console.log('Functions:', functions.map(f => f.name));
+    // console.log('Properties:', properties.map(p => p.name));
 
     // Register CompletionItemProvider for Pixilang
     const provider = vscode.languages.registerCompletionItemProvider(
@@ -95,7 +95,27 @@ function activate(context) {
         '='  // Trigger IntelliSense after an assignment
     );
 
+    const hoverProvider = vscode.languages.registerHoverProvider(
+        { language: 'pixilang', scheme: 'file' },
+        {
+            provideHover(document, position) {
+                const wordRange = document.getWordRangeAtPosition(position);
+                const word = document.getText(wordRange);
+                const item = builtInItems.find((item) => item.name === word);
+
+                if (item) {
+                    const markdown = new vscode.MarkdownString();
+                    markdown.appendCodeblock(`${item.name}(${item.parameters || ''})`, 'pixilang');
+                    markdown.appendMarkdown(`\n\n${item.documentation || 'No documentation available.'}`);
+                    return new vscode.Hover(markdown);
+                }
+                return null;
+            },
+        }
+    );
+
     context.subscriptions.push(provider);
+    context.subscriptions.push(hoverProvider);
 }
 
 /**
