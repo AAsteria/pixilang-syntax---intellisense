@@ -1,6 +1,6 @@
 # Pixilang Syntax & IntelliSense
 
-**Pixilang Syntax & IntelliSense** is a Visual Studio Code extension designed to enhance the Pixilang programming experience by providing syntax highlighting, IntelliSense, and detailed function documentation.
+**Pixilang Syntax & IntelliSense** is a Visual Studio Code extension designed to enhance the Pixilang programming experience by providing syntax highlighting, IntelliSense, and detailed documentation with examples.
 
 ![Demo Screenshot](./demo.png)
 ---
@@ -8,9 +8,9 @@
 ## Features
 
 - **Syntax Highlighting**: Pixilang code is color-coded for better readability.
-- **IntelliSense**: Autocompletion for Pixilang's built-in functions, constants, and keywords.
+- **IntelliSense**: Autocompletion for Pixilang's built-in constants, functions and reserved properties.
 - **Hover Documentation**: Detailed descriptions, parameter explanations, and examples for built-in functions.
-- **Wide Function Coverage**: Includes Pixilang features such as:
+- **Wide Function Coverage**: Basically all built-in features, such as:
   - Graphics
   - OpenGL
   - Animation
@@ -35,7 +35,6 @@ This extension does not add specific settings at this time. Future updates may i
 
 - Extend support for sunvox specific functions.
 - Add debugging tools for Pixilang.
-- 
 
 ## For More Information
 
