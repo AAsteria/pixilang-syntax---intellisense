@@ -16,6 +16,9 @@
 	  },
 	  {
 		"include": "#comments"
+	  },
+	  {
+		"include": "#constants"
 	  }
 	],
 	"repository": {
@@ -50,7 +53,14 @@
 		"name": "comment.line.double-slash.pixilang",
 		"begin": "//",
 		"end": "$"
+	  },
+	  "constants": {
+		"patterns": [
+		  {
+			"name": "constant.language.pixilang",
+			"match": "\\b[A-Z0-9_]+\\b"
+		  }
+		]
 	  }
 	}
   }
-  
