@@ -13,6 +13,7 @@ function activate(context) {
     const constantsPath = path.join(__dirname, 'constants');
     const functionsPath = path.join(__dirname, 'functions');
     const propertiesPath = path.join(__dirname, 'reserved_properties');
+    const sunvoxPath = path.join(__dirname, 'sunvox');
 
     function loadItemsFromDirectory(directory, type) {
         if (!fs.existsSync(directory)) {
@@ -22,11 +23,18 @@ function activate(context) {
 
         let items = [];
         fs.readdirSync(directory).forEach(file => {
-            const itemsFromFile = require(path.join(directory, file));
-            itemsFromFile.forEach(item => {
-                item.type = type;
-                items.push(item);
-            });
+            const filePath = path.join(directory, file);
+            if (fs.statSync(filePath).isDirectory()) {
+                // If it's a directory, recursively load items
+                items = items.concat(loadItemsFromDirectory(filePath, type));
+            } else if (file.endsWith('.js')) {
+                // If it's a file, require it and load its items
+                const itemsFromFile = require(filePath);
+                itemsFromFile.forEach(item => {
+                    item.type = type;
+                    items.push(item);
+                });
+            }
         });
         return items;
     }
@@ -35,20 +43,16 @@ function activate(context) {
     const constants = loadItemsFromDirectory(constantsPath, 'constant');
     const functions = loadItemsFromDirectory(functionsPath, 'function');
     const properties = loadItemsFromDirectory(propertiesPath, 'property');
+    const sunvoxConstants = loadItemsFromDirectory(path.join(sunvoxPath, 'constants'), 'sunvox-constant');
+    const sunvoxFunctions = loadItemsFromDirectory(path.join(sunvoxPath, 'functions'), 'sunvox-function');
 
-    builtInItems = [...globals, ...constants, ...functions, ...properties];
-
-    // console.log('Globals:', globals.map(g => g.name));
-    // console.log('Constants:', constants.map(c => c.name));
-    // console.log('Functions:', functions.map(f => f.name));
-    // console.log('Properties:', properties.map(p => p.name));
+    builtInItems = [...globals, ...constants, ...functions, ...properties, ...sunvoxConstants, ...sunvoxFunctions];
 
     // Register CompletionItemProvider for Pixilang
     const provider = vscode.languages.registerCompletionItemProvider(
         { language: 'pixilang', scheme: 'file' },
         {
             provideCompletionItems(document, position, token, context) {
-                // Map functions, constants, and globals to CompletionItems
                 return builtInItems.map(item => {
                     let labelPrefix;
                     let completionItemKind;
@@ -69,6 +73,14 @@ function activate(context) {
                         case 'property':
                             labelPrefix = 'prop';
                             completionItemKind = vscode.CompletionItemKind.Property;
+                            break;
+                        case 'sunvox-constant':
+                            labelPrefix = 'sv-con';
+                            completionItemKind = vscode.CompletionItemKind.Constant;
+                            break;
+                        case 'sunvox-function':
+                            labelPrefix = 'sv-fn';
+                            completionItemKind = vscode.CompletionItemKind.Function;
                             break;
                         default:
                             labelPrefix = '';

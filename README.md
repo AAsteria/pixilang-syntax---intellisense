@@ -17,7 +17,8 @@
   - Threads
   - File Handling
   - Networking
-  - System Calls, and more!
+  - System Calls
+  - Sunvox-specific Constants and Functions
 
 ## Extension Settings
 
@@ -25,14 +26,11 @@ This extension does not add specific settings at this time. Future updates may i
 
 ## Future Plans
 
-- Support function documentation when inserting parameters.
-- Extend support for sunvox specific functions.
 - Add debugging tools for Pixilang.
 
 ## For More Information
 
 - [Pixilang Official Website](http://warmplace.ru/soft/pixilang/)
 - [Visual Studio Code Extension Development](https://code.visualstudio.com/api)
-
 
 **Enjoy coding with Pixilang!**
