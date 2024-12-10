@@ -2,65 +2,131 @@
 	"name": "Pixilang",
 	"scopeName": "source.pixilang",
 	"patterns": [
-	  {
-		"include": "#keywords"
-	  },
-	  {
-		"include": "#strings"
-	  },
-	  {
-		"include": "#numbers"
-	  },
-	  {
-		"include": "#functions"
-	  },
-	  {
-		"include": "#comments"
-	  },
-	  {
-		"include": "#constants"
-	  }
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#includes"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#blockcomments"
+		},
+		{
+			"include": "#shebang"
+		}
 	],
 	"repository": {
-	  "keywords": {
-		"patterns": [
-		  {
+		"keywords": {
 			"name": "keyword.control.pixilang",
-			"match": "\\b(if|else|while|for|return|fn|break|continue|ret)\\b"
-		  }
-		]
-	  },
-	  "strings": {
-		"name": "string.quoted.double.pixilang",
-		"begin": "\"",
-		"end": "\"",
-		"patterns": [
-		  {
-			"name": "constant.character.escape.pixilang",
-			"match": "\\\\."
-		  }
-		]
-	  },
-	  "numbers": {
-		"name": "constant.numeric.pixilang",
-		"match": "\\b[+-]?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\\b"
-	  },
-	  "functions": {
-		"name": "entity.name.function.pixilang",
-		"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
-	  },
-	  "comments": {
-		"name": "comment.line.double-slash.pixilang",
-		"begin": "//",
-		"end": "$"
-	  },
-	  "constants": {
-		"patterns": [
-		  {
+			"match": "\\b(if|else|while|for|fn|break|break\\d+|breakall|continue|ret|goto|go|stop|halt)\\b"
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.pixilang",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.pixilang",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.pixilang",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.pixilang",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.pixilang",
+					"match": "\\b[+-]?0x[0-9A-Fa-f]+\\b"
+				},
+				{
+					"name": "constant.numeric.binary.pixilang",
+					"match": "\\b[+-]?0b[01]+\\b"
+				},
+				{
+					"name": "constant.numeric.rgb.pixilang",
+					"match": "\\#([A-Fa-f0-9]{6})\\b"
+				},
+				{
+					"name": "constant.numeric.pixilang",
+					"match": "\\b[+-]?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\\b"
+				}
+			]
+		},
+		"functions": {
+			"name": "entity.name.function.pixilang",
+			"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.block.pixilang",
+					"begin": "/\\*",
+					"end": "\\*/",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.begin.pixilang"
+						}
+					},
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.end.pixilang"
+						}
+					}
+				},
+				{
+					"name": "comment.line.double-slash.pixilang",
+					"begin": "//",
+					"end": "$"
+				}
+			]
+		},
+		"constants": {
 			"name": "constant.language.pixilang",
 			"match": "\\b[A-Z0-9_]+\\b"
-		  }
-		]
-	  }
+		},
+		"includes": {
+			"name": "meta.preprocessor.include.pixilang",
+			"match": "\\b(include)\\s+\"([^\"]+)\""
+		},
+		"operators": {
+			"name": "keyword.operator.pixilang",
+			"match": "%|/|div|\\*|!|~|\\+|-|>>|<<|==|!=|<|>|<=|>=|\\||\\^|&|\\|\\||&&"
+		},
+		"shebang": {
+			"name": "comment.line.shebang.pixilang",
+			"match": "^#!.*$"
+		}
 	}
-  }
+}
